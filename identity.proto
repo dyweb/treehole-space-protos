@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package model;
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+import "model.proto";
+
+option go_package = "model/;model";
+
+enum IdentityStatus {
+  IdentityStatusNormal = 0;
+  IdentityStatusDeleted = 1;
+  IdentityStatusBanned = 2;
+}
+
+enum IdentityType {
+  IdentityTypeNormal = 0;
+  IdentityTypeAdmin = 1;
+}
+
+message Identity {
+  Model model = 1;
+  uint64 user_id = 2;
+  string code = 3;
+  IdentityStatus status = 4;
+  IdentityType type = 5;
+  bool is_active = 6;
+}

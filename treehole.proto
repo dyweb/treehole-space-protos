@@ -1,0 +1,170 @@
+syntax = "proto3";
+
+package model;
+option go_package = "model/;model";
+
+import "auth.proto";
+import "user.proto";
+import "category.proto";
+import "tag.proto";
+import "thread.proto";
+import "post.proto";
+import "rate.proto";
+import "identity.proto";
+import "setting.proto";
+import "report.proto";
+import "notification.proto";
+import "subscribe.proto";
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+service TreeHole {
+  rpc Ping (EmptyRequest) returns (EmptyRequest) {}
+  rpc GetOAuthConfig (OAuthConfigRequest) returns (OAuthConfigResponse) {}
+  rpc OAuthLogin (OAuthLoginRequest) returns (OAuthLoginResponse) {}
+  rpc GetProfile (EmptyRequest) returns (User) {}
+  rpc SetActiveIdentity (IDRequest) returns (User) {}
+  rpc GetAllCategories (EmptyRequest) returns (CategoriesResponse) {}
+  rpc GetAllTags (EmptyRequest) returns (TagsResponse) {}
+  rpc GetHottestThreads (ThreadsQueryRequest) returns (ThreadsResponse) {}
+  rpc GetLatestThreads (ThreadsQueryRequest) returns (ThreadsResponse) {}
+  rpc GetUserThreads (ThreadsQueryRequest) returns (ThreadsResponse) {}
+  rpc GetUserFavThreads (ThreadsQueryRequest) returns (ThreadsResponse) {}
+  rpc GetUserParticipateThreads (ThreadsQueryRequest) returns (ThreadsResponse) {}
+  rpc GetThread (PostsQueryRequest) returns (Thread) {}
+  rpc GetThreadPosts (PostsQueryRequest) returns (PostsResponse) {}
+  rpc GetThreadPostsEx (PostsQueryRequestEx) returns (PostsResponse) {}
+  rpc GetPost (Post) returns (Post) {}
+  rpc RateThread (RateRequest) returns (Thread) {}
+  rpc FavThread (FavRequest) returns (Thread) {}
+  rpc RatePost (RateRequest) returns (Post) {}
+  rpc PutPost (Post) returns (Post) {}
+  rpc PutThread (Thread) returns (Thread) {}
+  rpc CreateIdentity (EmptyRequest) returns (User) {}
+  rpc DisableIdentity (Identity) returns (User) {}
+  rpc GetCreateIdentityQuota (EmptyRequest) returns (QuotaResponse) {}
+  rpc UpdateSetting (Setting) returns (Setting) {}
+  rpc PutReport (Report) returns (Report) {}
+  rpc SearchThreads (SearchRequest) returns (ThreadsResponse) {}
+  rpc GetUnreadNotificationCount (EmptyRequest) returns (CountReply) {}
+  rpc PutNotificationRead (Notification) returns (EmptyRequest) {}
+  rpc PutAllNotificationRead (EmptyRequest) returns (EmptyRequest) {}
+  rpc GetAllNotifications (NotificationQueryRequest) returns (NotificationResponse) {}
+  rpc PutSubscribe (Subscribe) returns (Subscribe) {}
+  rpc GetSubscribe (Subscribe) returns (Subscribe) {}
+}
+
+enum Sort {
+  SortAsc = 0;
+  SortDesc = 1;
+}
+
+message OAuthConfigRequest {
+  OAuthLoginChannel channel = 1;
+  LoginSource source = 2;
+}
+
+message OAuthConfigResponse {
+  string authorize_url = 1;
+  string client_id = 2;
+  repeated string scopes = 3;
+}
+
+message OAuthLoginRequest {
+  string code = 1;
+  OAuthLoginChannel channel = 2;
+  LoginSource source = 3;
+}
+
+message OAuthLoginResponse {
+  string token = 1;
+}
+
+message EmptyRequest {}
+
+message CategoriesResponse {
+  repeated Category categories = 1;
+}
+
+message TagsResponse {
+  repeated Tag tags = 1;
+}
+
+message ThreadsQueryRequest {
+  int64 last = 1;
+  uint32 size = 2;
+  Sort sort = 3;
+  uint64 category_id = 4;
+}
+
+message PostsQueryRequest {
+  uint64 thread_id = 1;
+  uint64 last = 2;
+  uint64 top = 3;
+  uint32 size = 4;
+  Sort sort = 5;
+  bool only_author = 6;
+}
+
+enum LoadDirection {
+  LoadDirectionDown = 0;
+  LoadDirectionUp = 1;
+}
+
+message PostsQueryRequestEx {
+  uint64 thread_id = 1;
+  uint64 last = 2;
+  uint64 top = 3;
+  uint32 size = 4;
+  Sort sort = 5;
+  bool only_author = 6;
+  LoadDirection direction = 7;
+}
+
+message ThreadsResponse {
+  repeated Thread threads = 1;
+}
+
+message PostsResponse {
+  repeated Post posts = 1;
+  uint64 total = 2;
+}
+
+message RateRequest {
+  uint64 id = 1;
+  RateType type = 2;
+}
+
+message FavRequest {
+  uint64 id = 1;
+  bool is_fav = 2;
+}
+
+message IDRequest {
+  uint64 id = 1;
+}
+
+message QuotaResponse {
+  uint64 monthly_remain = 1;
+  uint64 remain = 2;
+}
+
+message SearchRequest {
+  string keyword = 1;
+  uint32 page_size = 2;
+  uint32 offset = 3;
+}
+
+message CountReply {
+  uint64 count = 1;
+}
+
+message NotificationQueryRequest {
+  int64 last = 1;
+  uint64 page_size = 2;
+  bool only_unread = 3;
+  NotificationType type = 4;
+}
+
+message NotificationResponse {
+  repeated Notification notifications = 1;
+}

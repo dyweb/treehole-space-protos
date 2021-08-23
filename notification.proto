@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package model;
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+import "google/protobuf/any.proto";
+import "google/protobuf/wrappers.proto";
+import "model.proto";
+import "user.proto";
+
+option go_package = "model/;model";
+
+enum NotificationType {
+  NotificationTypeThreadReplied = 0;
+  NotificationTypePostReplied = 1;
+  NotificationTypeSystem = 2;
+}
+
+message Notification {
+  Model model = 1;
+  uint64 user_id = 2;
+  NotificationType type = 3;
+  google.protobuf.UInt64Value source_id = 4;
+  google.protobuf.Any source = 5;
+  string message = 6;
+  uint64 count = 7;
+  bool has_read = 8;
+  User user = 9;
+  google.protobuf.UInt64Value target_id = 10;
+  int64 last_update_at = 11;
+}

@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package model;
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+import "model.proto";
+import "identity.proto";
+import "setting.proto";
+
+option go_package = "model/;model";
+
+enum UserStatus {
+  UserStatusNormal = 0;
+  UserStatusReadOnly = 1;
+  UserStatusBanned = 2;
+}
+
+enum UserRole {
+  UserRoleNormal = 0;
+  UserRoleAdmin = 1;
+  UserRoleSuperAdmin = 2;
+}
+
+message User {
+  Model model = 1;
+  string account = 2;
+  repeated Identity identities = 3;
+  UserStatus status = 4;
+  UserRole role = 5;
+  Setting setting = 6;
+}

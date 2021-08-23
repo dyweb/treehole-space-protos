@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package model;
+
+option go_package = "model/;model";
+
+enum OAuthLoginChannel {
+  LoginWithJAccount = 0;
+}
+
+enum LoginSource {
+  LoginSourceIOS = 0;
+  LoginSourceAndroid = 1;
+  LoginSourceWeb = 2;
+}

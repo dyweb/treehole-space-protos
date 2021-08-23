@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package model;
+import "google/protobuf/wrappers.proto";
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+import "model.proto";
+import "identity.proto";
+import "thread.proto";
+
+option go_package = "model/;model";
+
+enum PostStatus {
+  PostStatusNormal = 0;
+  PostStatusCollapsed = 1;
+  PostStatusKilled = 2;
+}
+
+message Post {
+  Model model = 1;
+  uint64 thread_id = 2;
+  uint64 floor = 3;
+  string identity_code = 4;
+  string content = 5;
+  uint64 like_count = 6;
+  uint64 hate_count = 7;
+  PostStatus status = 8;
+  google.protobuf.UInt64Value reply_to_post_id = 9;
+  google.protobuf.StringValue reply_to_identity_code = 10;
+  google.protobuf.UInt64Value reply_to_floor = 11;
+  bool is_like = 12;
+  bool is_hate = 13;
+  Identity identity = 14;
+  Post reply_to_post = 15;
+  Thread thread = 16;
+  bool is_alice = 17;
+}

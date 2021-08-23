@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package model;
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+import "model.proto";
+import "user.proto";
+
+option go_package = "model/;model";
+
+message CreateIdentityRecord {
+  Model model = 1;
+  uint64 user_id = 2;
+  uint32 year = 3;
+  uint32 month = 4;
+  uint32 count = 5;
+  User user = 6;
+}

@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package model;
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+import "model.proto";
+
+option go_package = "model/;model";
+
+message Setting {
+  Model model = 1;
+  uint64 user_id = 2;
+  string filtered_words = 3;
+  string filtered_tag_ids = 4;
+}

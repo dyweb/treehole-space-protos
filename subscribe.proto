@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package model;
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+import "google/protobuf/wrappers.proto";
+import "model.proto";
+import "user.proto";
+import "thread.proto";
+
+option go_package = "model/;model";
+
+message Subscribe {
+  Model model = 1;
+  uint64 user_id = 2;
+  google.protobuf.BoolValue subscribe_mention = 3;
+  google.protobuf.BoolValue subscribe_post = 4;
+  uint64 thread_id = 5;
+  User user = 6;
+  Thread thread = 7;
+}

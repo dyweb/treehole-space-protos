@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package model;
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+import "model.proto";
+import "rate.proto";
+
+option go_package = "model/;model";
+
+message PostRate {
+  Model model = 1;
+  uint64 post_id = 2;
+  uint64 user_id = 3;
+  RateType type = 4;
+}

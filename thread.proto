@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package model;
+import "model.proto";
+import "category.proto";
+import "tag.proto";
+import "identity.proto";
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+option go_package = "model/;model";
+
+enum ThreadStatus {
+  ThreadStatusNormal = 0;
+}
+
+message Thread {
+  Model model = 1;
+  string title = 2;
+  uint64 category_id = 3;
+  Category category = 4;
+  repeated Tag tags = 5;
+  string identity_code = 6;
+  string content = 7;
+  uint64 view_count = 8;
+  uint64 like_count = 9;
+  uint64 hate_count = 10;
+  uint64 reply_count = 11;
+  bool is_top = 12;
+  bool is_fav = 13;
+  bool is_like = 14;
+  bool is_hate = 15;
+  ThreadStatus status = 16;
+  int64 last_reply_at = 17;
+  Identity identity = 18;
+  bool is_sage = 19;     // 下げ
+  bool is_read_only = 20;
+  bool hide_in_timeline = 21;
+  bool is_alice = 22;
+}

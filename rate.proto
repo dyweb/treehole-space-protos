@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package model;
+
+option go_package = "model/;model";
+
+enum RateType {
+  RateTypeNormal = 0;
+  RateTypeHate = -1;
+  RateTypeLike = 1;
+}

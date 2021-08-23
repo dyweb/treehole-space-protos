@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package model;
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+import "model.proto";
+import "thread.proto";
+import "user.proto";
+import "google/protobuf/wrappers.proto";
+
+option go_package = "model/;model";
+
+message UserFavThread {
+  Model model = 1;
+  uint64 thread_id = 2;
+  uint64 user_id = 3;
+  Thread thread = 4;
+  User user = 5;
+  google.protobuf.BoolValue is_fav = 6;
+}

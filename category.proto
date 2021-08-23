@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package model;
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+import "model.proto";
+import "google/protobuf/wrappers.proto";
+
+option go_package = "model/;model";
+
+message Category {
+  Model model = 1;
+  string name = 2;
+  int32 rank = 3;
+  google.protobuf.Int32Value open_time = 4;
+  google.protobuf.Int32Value close_time = 5;
+}
