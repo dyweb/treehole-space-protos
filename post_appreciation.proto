@@ -2,15 +2,14 @@ syntax = "proto3";
 
 package model;
 import "model.proto";
-import "rate.proto";
-import "thread.proto";
+import "post.proto";
 import "user.proto";
 
-message ThreadRate {
+message PostAppreciation {
   Model model = 1;
-  uint64 thread_id = 2;
+  uint64 post_id = 2;
   uint64 user_id = 3;
-  RateType type = 4;
-  Thread thread = 5;
+  int32 amount = 4;
+  Post post = 5;
   User user = 6;
 }

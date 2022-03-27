@@ -1,12 +1,10 @@
 syntax = "proto3";
 
 package model;
-import "github.com/gogo/protobuf/gogoproto/gogo.proto";
 import "model.proto";
 import "identity.proto";
 import "setting.proto";
-
-option go_package = "model/;model";
+import "user_fish.proto";
 
 enum UserStatus {
   UserStatusNormal = 0;
@@ -27,4 +25,13 @@ message User {
   UserStatus status = 4;
   UserRole role = 5;
   Setting setting = 6;
+  UserFish fish = 7;
+  UserStat stat = 8;
+}
+
+message UserStat {
+  uint64 user_id = 1;
+  int64 liked_count = 2;
+  int64 thread_count = 3;
+  int64 appreciation_count = 4;
 }

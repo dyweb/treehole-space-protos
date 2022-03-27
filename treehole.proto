@@ -1,8 +1,6 @@
 syntax = "proto3";
 
 package model;
-option go_package = "model/;model";
-
 import "auth.proto";
 import "user.proto";
 import "category.proto";
@@ -15,21 +13,27 @@ import "setting.proto";
 import "report.proto";
 import "notification.proto";
 import "subscribe.proto";
-import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+import "user_device.proto";
+import "site_config.proto";
+import "punishment.proto";
 
 service TreeHole {
   rpc Ping (EmptyRequest) returns (EmptyRequest) {}
   rpc GetOAuthConfig (OAuthConfigRequest) returns (OAuthConfigResponse) {}
+  rpc GetSiteConfig (EmptyRequest) returns (SiteConfig) {}
   rpc OAuthLogin (OAuthLoginRequest) returns (OAuthLoginResponse) {}
+  rpc RegisterDevice (UserDevice) returns (EmptyRequest) {}
   rpc GetProfile (EmptyRequest) returns (User) {}
   rpc SetActiveIdentity (IDRequest) returns (User) {}
   rpc GetAllCategories (EmptyRequest) returns (CategoriesResponse) {}
-  rpc GetAllTags (EmptyRequest) returns (TagsResponse) {}
+  rpc GetAllTags (TagsRequest) returns (TagsResponse) {}
   rpc GetHottestThreads (ThreadsQueryRequest) returns (ThreadsResponse) {}
   rpc GetLatestThreads (ThreadsQueryRequest) returns (ThreadsResponse) {}
   rpc GetUserThreads (ThreadsQueryRequest) returns (ThreadsResponse) {}
+  rpc GetUserPosts (PostsQueryRequest) returns (PostsResponse) {}
   rpc GetUserFavThreads (ThreadsQueryRequest) returns (ThreadsResponse) {}
   rpc GetUserParticipateThreads (ThreadsQueryRequest) returns (ThreadsResponse) {}
+  rpc GetThreadUserIdentities (Thread) returns (IdentitiesResponse) {}
   rpc GetThread (PostsQueryRequest) returns (Thread) {}
   rpc GetThreadPosts (PostsQueryRequest) returns (PostsResponse) {}
   rpc GetThreadPostsEx (PostsQueryRequestEx) returns (PostsResponse) {}
@@ -37,8 +41,12 @@ service TreeHole {
   rpc RateThread (RateRequest) returns (Thread) {}
   rpc FavThread (FavRequest) returns (Thread) {}
   rpc RatePost (RateRequest) returns (Post) {}
+  rpc AppreciateThread (AppreciateRequest) returns (Thread) {}
+  rpc AppreciatePost (AppreciateRequest) returns (Post) {}
   rpc PutPost (Post) returns (Post) {}
+  rpc DeletePost (Post) returns (EmptyRequest) {}
   rpc PutThread (Thread) returns (Thread) {}
+  rpc DeleteThread (Thread) returns (EmptyRequest) {}
   rpc CreateIdentity (EmptyRequest) returns (User) {}
   rpc DisableIdentity (Identity) returns (User) {}
   rpc GetCreateIdentityQuota (EmptyRequest) returns (QuotaResponse) {}
@@ -51,11 +59,18 @@ service TreeHole {
   rpc GetAllNotifications (NotificationQueryRequest) returns (NotificationResponse) {}
   rpc PutSubscribe (Subscribe) returns (Subscribe) {}
   rpc GetSubscribe (Subscribe) returns (Subscribe) {}
+  rpc GetBrowsableTags (EmptyRequest) returns (TagsResponse) {}
+  rpc CheckIn (EmptyRequest) returns (FishResponse) {}
+  rpc GetUploadUrl (UploadRequest) returns (UploadResponse) {}
+  rpc GetUserStats (EmptyRequest) returns (UserStatsResponse) {}
+  rpc GetDownloadUrl (UploadResponse) returns (UploadResponse) {}
+  rpc GetPunishments (EmptyRequest) returns (PunishmentsResponse) {}
 }
 
 enum Sort {
   SortAsc = 0;
   SortDesc = 1;
+  SortPopular = 2;
 }
 
 message OAuthConfigRequest {
@@ -85,15 +100,20 @@ message CategoriesResponse {
   repeated Category categories = 1;
 }
 
+message TagsRequest {
+  bool all = 1;
+}
+
 message TagsResponse {
   repeated Tag tags = 1;
 }
 
 message ThreadsQueryRequest {
-  int64 last = 1;
+  int64 last = 1 [jstype = JS_STRING];
   uint32 size = 2;
   Sort sort = 3;
   uint64 category_id = 4;
+  repeated uint64 tag_ids = 5;
 }
 
 message PostsQueryRequest {
@@ -103,6 +123,7 @@ message PostsQueryRequest {
   uint32 size = 4;
   Sort sort = 5;
   bool only_author = 6;
+  bool should_statistic = 7;
 }
 
 enum LoadDirection {
@@ -134,6 +155,11 @@ message RateRequest {
   RateType type = 2;
 }
 
+message AppreciateRequest {
+  uint64 id = 1;
+  int32 amount = 2;
+}
+
 message FavRequest {
   uint64 id = 1;
   bool is_fav = 2;
@@ -159,7 +185,7 @@ message CountReply {
 }
 
 message NotificationQueryRequest {
-  int64 last = 1;
+  int64 last = 1 [jstype = JS_STRING];
   uint64 page_size = 2;
   bool only_unread = 3;
   NotificationType type = 4;
@@ -167,4 +193,42 @@ message NotificationQueryRequest {
 
 message NotificationResponse {
   repeated Notification notifications = 1;
+}
+
+message IdentitiesResponse {
+  repeated Identity identities = 1;
+}
+
+message FishResponse {
+  double fish_count = 1;
+}
+
+message UploadRequest {
+  string file_name = 1;
+  uint64 size = 2;
+  string md5 = 3;
+  string content_type = 4;
+  uint64 width = 5;
+  uint64 height = 6;
+}
+
+message UploadResponse {
+  string uuid = 1;
+  string url = 2;
+  string name = 3;
+  uint64 width = 4;
+  uint64 height = 5;
+}
+
+message UserStatsResponse {
+  int64 thread_count = 1;
+  int64 post_count = 2;
+  int64 got_like_count = 3;
+  int64 got_hate_count = 4;
+  int64 sent_like_count = 5;
+  int64 sent_hate_count = 6;
+}
+
+message PunishmentsResponse {
+  repeated Punishment punishments = 1;
 }

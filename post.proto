@@ -2,17 +2,16 @@ syntax = "proto3";
 
 package model;
 import "google/protobuf/wrappers.proto";
-import "github.com/gogo/protobuf/gogoproto/gogo.proto";
 import "model.proto";
 import "identity.proto";
 import "thread.proto";
-
-option go_package = "model/;model";
+import "user_thread_identity.proto";
 
 enum PostStatus {
   PostStatusNormal = 0;
   PostStatusCollapsed = 1;
   PostStatusKilled = 2;
+  PostStatusHide = 3;
 }
 
 message Post {
@@ -32,5 +31,14 @@ message Post {
   Identity identity = 14;
   Post reply_to_post = 15;
   Thread thread = 16;
-  bool is_alice = 17;
+  google.protobuf.BoolValue hide_identity = 17;
+  google.protobuf.UInt64Value user_thread_identity_id = 18;
+  UserThreadIdentity user_thread_identity = 19;
+  uint64 appreciation_count = 20;
+  bool is_appreciated = 21;
+  bool can_delete = 22;
+  string remark = 23;
+  string hide_reason = 24;
+  string preview = 25;
+  google.protobuf.BoolValue disable_hate = 26;
 }

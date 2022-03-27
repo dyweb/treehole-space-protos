@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package model;
+import "model.proto";
+
+message UserFish {
+  Model model = 1;
+  uint64 user_id = 2;
+  double fish_count = 3;
+}

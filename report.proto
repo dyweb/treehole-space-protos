@@ -1,10 +1,7 @@
 syntax = "proto3";
 
 package model;
-import "github.com/gogo/protobuf/gogoproto/gogo.proto";
 import "model.proto";
-
-option go_package = "model/;model";
 
 enum ReportTarget {
   ReportTargetThread = 0;
@@ -13,6 +10,11 @@ enum ReportTarget {
 
 enum ReportType {
   ReportTypeNormal = 0;
+  ReportTypePolitics = 1;
+  ReportTypePorn = 2;
+  ReportTypeContact = 3;
+  ReportTypeAbuse = 4;
+  ReportTypeKY = 5;
 }
 
 message Report {

@@ -5,12 +5,12 @@ import "model.proto";
 import "category.proto";
 import "tag.proto";
 import "identity.proto";
-import "github.com/gogo/protobuf/gogoproto/gogo.proto";
-
-option go_package = "model/;model";
+import "google/protobuf/wrappers.proto";
 
 enum ThreadStatus {
   ThreadStatusNormal = 0;
+  ThreadStatusHide = 1;
+  ThreadStatusCollapsed = 2;
 }
 
 message Thread {
@@ -30,10 +30,20 @@ message Thread {
   bool is_like = 14;
   bool is_hate = 15;
   ThreadStatus status = 16;
-  int64 last_reply_at = 17;
+  int64 last_reply_at = 17 [jstype = JS_STRING];
   Identity identity = 18;
   bool is_sage = 19;     // 下げ
   bool is_read_only = 20;
   bool hide_in_timeline = 21;
-  bool is_alice = 22;
+  google.protobuf.BoolValue is_alice = 22;
+  google.protobuf.UInt64Value last_read = 23;
+  bool has_read = 24;
+  uint64 appreciation_count = 25;
+  bool is_appreciated = 26;
+  bool can_delete = 27;
+  bool has_popular = 28;
+  string remark = 29;
+  string preview = 30;
+  google.protobuf.BoolValue disable_hate = 31;
+  string hide_reason = 32;
 }

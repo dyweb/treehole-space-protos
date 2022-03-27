@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package model;
+import "model.proto";
+
+message SiteConfig {
+  Model model = 1;
+  string user_bg_url = 2;
+}

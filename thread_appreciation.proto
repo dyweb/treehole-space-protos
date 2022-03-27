@@ -4,13 +4,12 @@ package model;
 import "model.proto";
 import "thread.proto";
 import "user.proto";
-import "google/protobuf/wrappers.proto";
 
-message UserFavThread {
+message ThreadAppreciation {
   Model model = 1;
   uint64 thread_id = 2;
   uint64 user_id = 3;
-  Thread thread = 4;
-  User user = 5;
-  google.protobuf.BoolValue is_fav = 6;
+  int32 amount = 4;
+  Thread thread = 5;
+  User user = 6;
 }

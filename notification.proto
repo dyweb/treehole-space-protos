@@ -1,13 +1,10 @@
 syntax = "proto3";
 
 package model;
-import "github.com/gogo/protobuf/gogoproto/gogo.proto";
 import "google/protobuf/any.proto";
 import "google/protobuf/wrappers.proto";
 import "model.proto";
 import "user.proto";
-
-option go_package = "model/;model";
 
 enum NotificationType {
   NotificationTypeThreadReplied = 0;
@@ -26,5 +23,5 @@ message Notification {
   bool has_read = 8;
   User user = 9;
   google.protobuf.UInt64Value target_id = 10;
-  int64 last_update_at = 11;
+  int64 last_update_at = 11 [jstype = JS_STRING];
 }

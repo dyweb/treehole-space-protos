@@ -1,11 +1,8 @@
 syntax = "proto3";
 
 package model;
-import "github.com/gogo/protobuf/gogoproto/gogo.proto";
 import "model.proto";
 import "google/protobuf/wrappers.proto";
-
-option go_package = "model/;model";
 
 message Category {
   Model model = 1;
@@ -13,4 +10,7 @@ message Category {
   int32 rank = 3;
   google.protobuf.Int32Value open_time = 4;
   google.protobuf.Int32Value close_time = 5;
+  google.protobuf.BoolValue is_alice = 6;
+  google.protobuf.BoolValue hide_in_timeline = 7;
+  google.protobuf.BoolValue disable_hate = 8;
 }

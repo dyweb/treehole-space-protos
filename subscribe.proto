@@ -1,13 +1,10 @@
 syntax = "proto3";
 
 package model;
-import "github.com/gogo/protobuf/gogoproto/gogo.proto";
 import "google/protobuf/wrappers.proto";
 import "model.proto";
 import "user.proto";
 import "thread.proto";
-
-option go_package = "model/;model";
 
 message Subscribe {
   Model model = 1;

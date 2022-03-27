@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package model;
+import "model.proto";
+import "user.proto";
+
+message UploadFile {
+  Model model = 1;
+  uint64 user_id = 2;
+  uint64 thread_id = 3;
+  User user = 4;
+  string file_name = 5;
+  uint64 size = 6;
+  string uuid = 7;
+  string content_type = 8;
+  uint64 width = 9;
+  uint64 height = 10;
+  bool audited = 11;
+}

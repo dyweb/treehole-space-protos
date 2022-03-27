@@ -1,14 +1,18 @@
 syntax = "proto3";
 
 package model;
-import "github.com/gogo/protobuf/gogoproto/gogo.proto";
 import "model.proto";
-
-option go_package = "model/;model";
+import "google/protobuf/wrappers.proto";
 
 message Setting {
   Model model = 1;
   uint64 user_id = 2;
   string filtered_words = 3;
   string filtered_tag_ids = 4;
+  google.protobuf.BoolValue inactive_read = 5;
+  google.protobuf.BoolValue hide_bad_posts = 6;
+  google.protobuf.BoolValue hide_bad_threads = 7;
+  google.protobuf.BoolValue enable_push_notifications = 8;
+  google.protobuf.BoolValue enable_utilities = 9;
+  string filtered_category_ids = 10;
 }

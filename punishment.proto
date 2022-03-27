@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package model;
+import "model.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+import "thread.proto";
+import "post.proto";
+import "category.proto";
+import "user.proto";
+import "identity.proto";
+
+enum PunishType {
+  PunishTypeMute = 0;
+  PunishTypeNoCreateThread = 1;
+  PunishTypeBanCategory = 2;
+}
+
+message Punishment {
+  Model model = 1;
+  google.protobuf.Timestamp end_at = 2;
+  google.protobuf.UInt64Value user_id = 3;
+  google.protobuf.UInt64Value identity_id = 4;
+  PunishType type = 5;
+  string reason = 6;
+  google.protobuf.UInt64Value category_id = 7;
+  google.protobuf.UInt64Value from_thread_id = 8;
+  google.protobuf.UInt64Value from_post_id = 9;
+  Thread from_thread = 10;
+  Post from_post = 11;
+  bool ban_user = 12;
+  uint64 days = 13;
+  Category category = 14;
+  User user = 15;
+  Identity identity = 16;
+  uint64 announcement_thread_id = 17;
+}

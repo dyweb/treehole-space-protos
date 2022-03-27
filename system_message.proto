@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package model;
+import "google/protobuf/wrappers.proto";
+import "model.proto";
+import "thread.proto";
+import "post.proto";
+
+message SystemMessage {
+  Model model = 1;
+  string title = 2;
+  string body = 3;
+  google.protobuf.BoolValue can_rebuttal = 4;
+  google.protobuf.BoolValue has_rebuttal = 5;
+  google.protobuf.BoolValue rebuttal_rejected = 6;
+  google.protobuf.UInt64Value from_thread_id = 7;
+  google.protobuf.UInt64Value from_post_id = 8;
+  Thread from_thread = 9;
+  Post from_post = 10;
+}

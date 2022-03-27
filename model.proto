@@ -2,9 +2,6 @@ syntax = "proto3";
 
 package model;
 import "google/protobuf/timestamp.proto";
-import "github.com/gogo/protobuf/gogoproto/gogo.proto";
-
-option go_package = "model/;model";
 
 message Model {
   uint64 id = 1;

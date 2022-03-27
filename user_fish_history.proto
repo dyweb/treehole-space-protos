@@ -4,11 +4,10 @@ package model;
 import "model.proto";
 import "user.proto";
 
-message CreateIdentityRecord {
+message UserFishHistory {
   Model model = 1;
   uint64 user_id = 2;
-  uint32 year = 3;
-  uint32 month = 4;
-  uint32 count = 5;
-  User user = 6;
+  double delta = 3;
+  User user = 4;
+  string message = 5;
 }

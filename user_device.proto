@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package model;
+import "model.proto";
+import "user.proto";
+
+enum DeviceType {
+  DeviceTypeIOS = 0;
+  DeviceTypeAndroid = 1;
+  DeviceTypeWeb = 2;
+}
+
+message UserDevice {
+  Model model = 1;
+  uint64 user_id = 2;
+  string device_token = 3;
+  DeviceType device_type = 4;
+  User user = 5;
+}
