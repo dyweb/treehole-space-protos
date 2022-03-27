@@ -11,3 +11,9 @@ enum LoginSource {
   LoginSourceAndroid = 1;
   LoginSourceWeb = 2;
 }
+
+enum WebSource {
+  WebSourceLocalhost = 0;
+  WebSourceDevServer = 1;
+  WebSourceProdServer = 2;
+}
