@@ -88,6 +88,7 @@ message OAuthLoginRequest {
   string code = 1;
   OAuthLoginChannel channel = 2;
   LoginSource source = 3;
+  WebSource web_source = 4;
 }
 
 message OAuthLoginResponse {
